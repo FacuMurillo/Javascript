@@ -10,30 +10,115 @@
 //     alert("No eres bienvenido")
 // }
 
-let carrito = parseInt(prompt("Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
+//                 DESAFIO Numero 1
 
-let totalCarrito = 0
-let seguirComprando = true
-let continuarComprando
 
-    while (seguirComprando === true) {
-        if (carrito === 1) {
-            totalCarrito = totalCarrito + 300
-        } else if (carrito === 2) {
-            totalCarrito = totalCarrito + 200
-        } else if (carrito === 3) {
-            totalCarrito = totalCarrito + 900
-        } else if (carrito === 4) {
-            totalCarrito = totalCarrito + 150
-        } else {
-            carrito = parseInt(prompt("ELIGE UNO / Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
-            continue
+// // let carrito = parseInt(prompt("Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
+
+// // let totalCarrito = 0
+// // let seguirComprando = true
+// // let continuarComprando
+
+// //     while (seguirComprando === true) {
+// //         if (carrito === 1) {
+// //             totalCarrito = totalCarrito + 300
+// //         } else if (carrito === 2) {
+// //             totalCarrito = totalCarrito + 200
+// //         } else if (carrito === 3) {
+// //             totalCarrito = totalCarrito + 900
+// //         } else if (carrito === 4) {
+// //             totalCarrito = totalCarrito + 150
+// //         } else {
+// //             carrito = parseInt(prompt("ELIGE UNO / Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
+// //             continue
+// //         }
+// //     continuarComprando = parseInt(prompt("Quieres continuar comprando? 1: Si 2: No"))
+// //         if (continuarComprando === 1) {
+// //             carrito = parseInt(prompt("Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
+// //         } else {
+// //             seguirComprando = false
+// //         }
+// //     }
+// //         alert(`El total de la compra es de ${totalCarrito}`)
+
+
+                // Desafio Numero 2
+
+        class Producto{
+            constructor(id,nombre,precio,stock){
+                this.id = id;
+                this.nombre = nombre;
+                this.precio = precio;
+                this.stock = stock ;
+            }
+            restaStock(){
+                this.stock = this.stock - 1;
+                console.log(`El producto ${this.nombre} tiene un stock de ${this.stock}`)
+            }
         }
-    continuarComprando = parseInt(prompt("Quieres continuar comprando? 1: Si 2: No"))
-        if (continuarComprando === 1) {
-            carrito = parseInt(prompt("Que deseas comprar hoy? 1: Zapatillas 2: Ropa 3: Celulares 4: Auriculares "))
-        } else {
-            seguirComprando = false
-        }
+const pro1 = new Producto(0, "Iphone 7", 600 , 100)
+const pro2 = new Producto(1, "Iphone 8s Plus", 950 , 30)
+const pro3 = new Producto(2, "Iphone 14", 2000 , 50)
+const pro4 = new Producto(3, "Iphone 12", 1000 , 100)
+
+const productos = [pro1, pro2, pro3, pro4];
+
+console.table(productos)
+    
+console.log (`Esta es la lista de Productos con sus precios y stocks`)
+
+const carrito = []
+
+let productosCarrito = "Que estas buscando hoy?"
+
+function agregarCarrito(){
+    for (item of productos){
+        productosCarrito += ` \n ${item.id} - ${item.nombre} con un precio de ${item.precio}`
     }
-        alert(`El total de la compra es de ${totalCarrito}`)
+    productosCarrito += `\n Ingrese el numero del producto que quieres, para finalizar ingrese 99`
+    let respuesta = parseInt(prompt(productosCarrito))
+    while(isNaN(respuesta)){
+        alert("Porfavor ingrese un numero que aparece en la tabla")
+        respuesta = parseInt(prompt(productosCarrito))
+    }
+    while(respuesta != 99){
+        switch(respuesta){
+            case 0:
+            carrito.push(productos[0])
+            alert(`Agregamos al carrito el producto ${productos[0].nombre}`)
+             productos[0].restaStock()
+             break;
+            case 1
+            :carrito.push(productos[1])
+            alert(`Agregamos al carrito el producto ${productos[1].nombre}`)
+            productos[1].restaStock()
+            break;
+            case 2: 
+            carrito.push(productos[2])
+            alert(`Agregamos al carrito el producto ${productos[2].nombre}`)
+            productos[2].restaStock()
+            break;
+            case 3: 
+            carrito.push(productos[3])
+            alert(`Agregamos al carrito el producto ${productos[3].nombre}`)
+             productos[3].restaStock()
+            break;
+            default: alert("No tenemos stock para ese producto")
+            break;      
+        }
+        respuesta = parseInt(prompt(productosCarrito))
+    }
+    alert("Muchas Gracias tomamos tu pedido")
+    mostrarCarrito()
+}
+
+let productosMostrar = `Vas a llevar: `
+let precioCarrito = 0
+
+agregarCarrito()
+function mostrarCarrito(){
+    for(itemsElegidos of carrito)
+    productosCarrito += `\n - ${itemsElegidos.nombre}`
+    precioCarrito += itemsElegidos.precio
+}
+alert(`Tu carrito es de \n ${productosCarrito} \n y tienes que pagar ${precioCarrito}`)
